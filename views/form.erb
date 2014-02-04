@@ -13,10 +13,16 @@
   $(function() {
     $('#myForm').submit(function() {
     $.post('/new', $("#myForm").serialize(), function(data){
-      var $url = $('<a>', {href: data}).append(data);
-      // var $actualURL = $('#myForm :input');
-      // console.log($actualURL)
-      // console.log(a)
+      var tempData = JSON.parse(data);
+      console.log(tempData)
+      // var $url = $('<a>', {href: tempData.link.url}).append(tempData.link.code);
+      var $url = $('<a>', {href: 'http://' + tempData.link.url}).append(tempData.link.code);
+      // $url[0].href = $url[0].href.substr(22);
+      // console.log($url[0].href);
+      // $url.on("click", function(){
+      //   // $url[0].href
+      //   console.log("clicked");
+      // })
       var $shortcode = $('<div>').append("Your Code:").append($url);
       $('#shortcode').append($shortcode.hide().fadeIn());
       });

@@ -11,6 +11,7 @@ class CreateLinks < ActiveRecord::Migration
     def self.up
       create_table :links do |t|
         t.string :url, :null => false
+        t.string :code, :null => false
         t.timestamp
       end
     end
