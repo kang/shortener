@@ -8,7 +8,7 @@
 
 class CreateLinks < ActiveRecord::Migration
     # PUT MIGRATION CODE HERE TO SETUP DATABASE
-    def change
+    def self.up
       create_table :links do |t|
         t.string :url, :null => false
         t.timestamp
@@ -19,23 +19,9 @@ class CreateLinks < ActiveRecord::Migration
     #   add_column :links, :shortened, :timestamp
     # end
 
-    # def self.down
+    def self.down
+      drop_table :links
     #   remove_column :links, :shortened, :timestamp
-    # end
+    end
 
 end
-# def change
-  # create_table :links do |link|
-  #   link.timestamp
-  #   # t.timestamps
-  # end
-
-  #   say "Created a table"
-  #   suppress_messages {add_index :links, }
-  #   say "and an index!", true
-  #   say_with_time 'Waiting for a while' do
-  #     sleep 10
-  #     250
-  #   end
-  # end
-
