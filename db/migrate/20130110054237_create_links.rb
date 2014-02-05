@@ -12,6 +12,7 @@ class CreateLinks < ActiveRecord::Migration
       create_table :links do |t|
         t.string :url, :null => false
         t.string :code, :null => false
+        t.integer :clicks, :null => false
         t.timestamp
       end
     end

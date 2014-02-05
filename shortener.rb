@@ -5,7 +5,6 @@ require 'pry'
 ###########################################################
 # Configuration
 ###########################################################
-# binding.pry
 
 set :public_folder, File.dirname(__FILE__) + '/public'
 
@@ -28,16 +27,13 @@ end
 # http://guides.rubyonrails.org/association_basics.html
 
 class Link < ActiveRecord::Base # this is an active record
-  # attr_accessor :code
-  # def code
-  # end
+
+  def increment_count
+    update_attribute :clicks, clicks+1
+  end
 
 end
 
-# link = Link.new()
-# link.save()
-# Link.find(id)
-# Link.find_by_url()
 
 ###########################################################
 # Routes
@@ -48,12 +44,12 @@ get '/' do
   # save all information into array
   # iterate through array
   # display information
-  @links = [] # FIX ME
+
+  @links = []
   c = Link.find(:all)
   c.each do |link|
     @links.push(link)
   end
-
   erb :index
 end
 
@@ -61,8 +57,9 @@ get '/new' do
   erb :form
 end
 
+post '/' do
 
-# Link.create()
+end
 
 post '/new' do
   tmpURL = params[:url]
@@ -70,30 +67,16 @@ post '/new' do
   if (params[:url])[0..2] == 'www' || (params[:url])[0..3] == 'http'
     if (Link.exists?(:url => tmpURL))
       lnk = Link.where(:url => tmpURL)[0]
-      puts "#{lnk} found old url"
+
+      lnk.increment_count
     else
-      puts "created new url"
-      lnk = Link.create({:url => tmpURL, :code => tmpCode})
+      clicks = 0
+      lnk = Link.create({:url => tmpURL, :code => tmpCode, :clicks => clicks})
     end
   else
     puts "error"
   end
-  puts  "returns last #{lnk}"
   lnk.to_json
 end
 
-# MORE ROUTES GO HERE
 
-
-  # l = Link.find_or_create_by_url
-  # @createLinks = CreateLinks.new()
-
-  # write into database
-  # re-get
-  # PUT CODE HERE TO CREATE NEW SHORTENED LINKS
-  # @links << :url
-
-
-  # yourlink = new Link(:url)
-  # @links << yourlink.actualUrl
-  # puts :url

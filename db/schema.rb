@@ -13,8 +13,9 @@
 ActiveRecord::Schema.define(:version => 20130110054237) do
 
   create_table "links", :force => true do |t|
-    t.string "url",  :null => false
-    t.string "code", :null => false
+    t.string  "url",    :null => false
+    t.string  "code",   :null => false
+    t.integer "clicks", :null => false
   end
 
 end
